@@ -11,11 +11,15 @@ class PhotosCubit extends Cubit<PhotosState> {
     loadPhotos();
   }
 
-  void loadPhotos() async {
+  Future<void> loadPhotos() async {
+    emit(PhotosLoading());
+
     try {
+      // TODO: Add lazy loading (if needed)
       List<Photo> photos = await _repository.getAllPhotos();
       emit(PhotosLoaded(photos));
     } catch (_) {
+      // TODO: Pass error to state (if needed)
       emit(PhotosError());
     }
   }

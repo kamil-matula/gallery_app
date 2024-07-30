@@ -7,7 +7,6 @@ class NetworkService {
     _api ??= Dio(
       BaseOptions(
         baseUrl: 'https://jsonplaceholder.typicode.com/',
-        headers: {'Content-Type': 'application/json'},
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         sendTimeout: const Duration(seconds: 10),
