@@ -15,6 +15,9 @@ class _$DependencyInjection extends DependencyInjection {
       ..registerSingleton(
           (c) => CommentsNetworkService(c.resolve<NetworkService>()))
       ..registerSingleton(
-          (c) => PhotosNetworkService(c.resolve<NetworkService>()));
+          (c) => PhotosNetworkService(c.resolve<NetworkService>()))
+      ..registerSingleton(
+          (c) => PhotosRepository(c.resolve<PhotosNetworkService>()))
+      ..registerFactory((c) => PhotosCubit(c.resolve<PhotosRepository>()));
   }
 }
