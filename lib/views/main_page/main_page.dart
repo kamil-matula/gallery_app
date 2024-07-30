@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_app/constants/texts.dart';
 import 'package:gallery_app/core/dependency_injection.dart';
 import 'package:gallery_app/views/comments_tab/comments_tab.dart';
+import 'package:gallery_app/views/comments_tab/cubit/comments_cubit.dart';
 import 'package:gallery_app/views/main_page/cubit/bottom_navigation_bar_cubit.dart';
 import 'package:gallery_app/views/photos_tab/cubit/photos_cubit.dart';
 import 'package:gallery_app/views/photos_tab/photos_tab.dart';
@@ -15,7 +16,10 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomNavigationBarCubit()),
+        // The cubits are provided here only to maintain state between tabs;
+        // to prevent this behaviour, we can wrap specific screens:
         BlocProvider(create: (_) => kiwi<PhotosCubit>()),
+        BlocProvider(create: (_) => kiwi<CommentsCubit>()),
       ],
       child: _body(),
     );

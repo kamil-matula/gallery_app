@@ -12,10 +12,11 @@ class PhotosCubit extends Cubit<PhotosState> {
   }
 
   Future<void> loadPhotos() async {
+    if (state is PhotosLoading) return;
     emit(PhotosLoading());
 
     try {
-      // TODO: Add lazy loading (if needed)
+      // TODO: Add lazy loading, e.g. fetch by albums (if needed)
       List<Photo> photos = await _repository.getAllPhotos();
       emit(PhotosLoaded(photos));
     } catch (_) {

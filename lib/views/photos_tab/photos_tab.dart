@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_app/core/dependency_injection.dart';
 import 'package:gallery_app/models/photo.dart';
 import 'package:gallery_app/views/photos_details_page/photos_details_page.dart';
 import 'package:gallery_app/views/photos_tab/cubit/photos_cubit.dart';
@@ -19,7 +18,8 @@ class PhotosTab extends StatelessWidget {
 
         if (state is PhotosLoaded) {
           return RefreshIndicator(
-            onRefresh: () async => await kiwi<PhotosCubit>().loadPhotos(),
+            onRefresh: () async =>
+                await context.read<PhotosCubit>().loadPhotos(),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
@@ -32,6 +32,23 @@ class PhotosTab extends StatelessWidget {
                 Photo photo = state.photos[index];
                 return _tile(context, photo);
               },
+            ),
+          );
+        }
+
+        if (state is PhotosError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Something went wrong. Please try again.'),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () => context.read<PhotosCubit>().loadPhotos(),
+                  child: const Text('Try again'),
+                ),
+              ],
             ),
           );
         }
