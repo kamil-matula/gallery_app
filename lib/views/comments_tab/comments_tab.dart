@@ -17,14 +17,15 @@ class CommentsTab extends StatelessWidget {
         if (state is CommentsLoaded) {
           return RefreshIndicator(
             onRefresh: () async =>
-            await context.read<CommentsCubit>().loadComments(),
-            child: ListView.builder(
+                await context.read<CommentsCubit>().loadComments(),
+            child: ListView.separated(
               padding: const EdgeInsets.all(8.0),
               itemCount: state.comments.length,
               itemBuilder: (context, index) {
                 Comment comment = state.comments[index];
                 return _tile(context, comment);
               },
+              separatorBuilder: (_, __) => const SizedBox(height: 10),
               shrinkWrap: true,
             ),
           );
@@ -53,12 +54,62 @@ class CommentsTab extends StatelessWidget {
   }
 
   Widget _tile(BuildContext context, Comment comment) {
-    return Column(
-      children: [
-        Text('Name: ${comment.name}'),
-        Text('Email: ${comment.email}'),
-        Text('Body: ${comment.body}'),
-      ],
+    return Material(
+      elevation: 5.0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RichText(
+              text: TextSpan(
+                text: 'Email: ',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                    text: comment.email,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  )
+                ],
+              ),
+            ),
+            const Divider(),
+            RichText(
+              text: TextSpan(
+                text: 'Name: ',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                    text: comment.name,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  )
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                text: 'Body: ',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                    text: comment.body,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
