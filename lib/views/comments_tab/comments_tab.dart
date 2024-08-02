@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery_app/l10n/app_localizations_context.dart';
 import 'package:gallery_app/models/comment.dart';
 import 'package:gallery_app/views/comments_tab/cubit/comments_cubit.dart';
 
@@ -22,7 +23,7 @@ class CommentsTab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               itemCount: state.comments.length,
               itemBuilder: (context, index) {
-                Comment comment = state.comments[index];
+                final Comment comment = state.comments[index];
                 return _tile(context, comment);
               },
               separatorBuilder: (_, __) => const SizedBox(height: 10),
@@ -37,11 +38,11 @@ class CommentsTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Something went wrong. Please try again.'),
+                Text(context.texts.somethingWentWrong),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () => context.read<CommentsCubit>().loadComments(),
-                  child: const Text('Try again'),
+                  child: Text(context.texts.tryAgain),
                 ),
               ],
             ),
@@ -63,7 +64,7 @@ class CommentsTab extends StatelessWidget {
           children: [
             RichText(
               text: TextSpan(
-                text: 'Email: ',
+                text: context.texts.email,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -79,7 +80,7 @@ class CommentsTab extends StatelessWidget {
             const Divider(),
             RichText(
               text: TextSpan(
-                text: 'Name: ',
+                text: context.texts.name,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -94,7 +95,7 @@ class CommentsTab extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                text: 'Body: ',
+                text: context.texts.body,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

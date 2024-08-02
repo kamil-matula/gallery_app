@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery_app/l10n/app_localizations_context.dart';
 import 'package:gallery_app/models/photo.dart';
 import 'package:gallery_app/views/photos_details_page/photos_details_page.dart';
 import 'package:gallery_app/views/photos_tab/cubit/photos_cubit.dart';
@@ -29,7 +30,7 @@ class PhotosTab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               itemCount: state.photos.length,
               itemBuilder: (context, index) {
-                Photo photo = state.photos[index];
+                final Photo photo = state.photos[index];
                 return _tile(context, photo);
               },
             ),
@@ -42,11 +43,11 @@ class PhotosTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Something went wrong. Please try again.'),
+                Text(context.texts.somethingWentWrong),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () => context.read<PhotosCubit>().loadPhotos(),
-                  child: const Text('Try again'),
+                  child: Text(context.texts.tryAgain),
                 ),
               ],
             ),

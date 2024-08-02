@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_app/constants/texts.dart';
 import 'package:gallery_app/core/dependency_injection.dart';
+import 'package:gallery_app/l10n/app_localizations_context.dart';
 import 'package:gallery_app/views/comments_tab/comments_tab.dart';
 import 'package:gallery_app/views/comments_tab/cubit/comments_cubit.dart';
 import 'package:gallery_app/views/main_page/cubit/bottom_navigation_bar_cubit.dart';
@@ -16,21 +16,21 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomNavigationBarCubit()),
-        // The cubits are provided here only to maintain state between tabs;
-        // to prevent this behaviour, we can wrap specific screens:
         BlocProvider(create: (_) => kiwi<PhotosCubit>()),
         BlocProvider(create: (_) => kiwi<CommentsCubit>()),
       ],
-      child: _body(),
+      child: _body(context),
     );
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<BottomNavigationBarCubit, int>(
           builder: (_, currentIndex) {
-            return Text(currentIndex == 0 ? Texts.photoTab : Texts.commentTab);
+            return Text(currentIndex == 0
+                ? context.texts.photosTab
+                : context.texts.commentsTab);
           },
         ),
       ),
@@ -50,14 +50,14 @@ class MainPage extends StatelessWidget {
             onTap: (index) {
               context.read<BottomNavigationBarCubit>().changeIndex(index);
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.photo),
-                label: Texts.photoTab,
+                icon: const Icon(Icons.photo),
+                label: context.texts.photosTab,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.comment),
-                label: Texts.commentTab,
+                icon: const Icon(Icons.comment),
+                label: context.texts.commentsTab,
               ),
             ],
           );

@@ -17,7 +17,7 @@ class CommentsCubit extends Cubit<CommentsState> {
 
     try {
       // TODO: Add lazy loading, e.g. fetch by posts (if needed)
-      List<Comment> comments = await _repository.getAllComments();
+      final List<Comment> comments = await _repository.getAllComments();
       emit(CommentsLoaded(comments));
     } catch (_) {
       // TODO: Pass error to state (if needed)

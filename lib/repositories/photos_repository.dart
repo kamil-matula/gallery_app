@@ -7,7 +7,7 @@ class PhotosRepository {
   PhotosRepository(this._networkService);
 
   Future<List<Photo>> getAllPhotos() async {
-    Response<dynamic> response = await _networkService.getPhotos();
+    final Response<dynamic> response = await _networkService.getPhotos();
     return List<Photo>.from(response.data.map((json) => Photo.fromJson(json)));
   }
 

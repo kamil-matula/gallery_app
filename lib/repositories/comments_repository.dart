@@ -7,7 +7,7 @@ class CommentsRepository {
   CommentsRepository(this._networkService);
 
   Future<List<Comment>> getAllComments() async {
-    Response<dynamic> response = await _networkService.getComments();
+    final Response<dynamic> response = await _networkService.getComments();
     return List<Comment>.from(
       response.data.map((json) => Comment.fromJson(json)),
     );

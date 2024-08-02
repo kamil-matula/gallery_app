@@ -17,7 +17,7 @@ class PhotosCubit extends Cubit<PhotosState> {
 
     try {
       // TODO: Add lazy loading, e.g. fetch by albums (if needed)
-      List<Photo> photos = await _repository.getAllPhotos();
+      final List<Photo> photos = await _repository.getAllPhotos();
       emit(PhotosLoaded(photos));
     } catch (_) {
       // TODO: Pass error to state (if needed)

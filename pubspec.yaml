@@ -9,20 +9,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-  json_serializable: ^6.8.0
-  json_annotation: ^4.9.0
-  dio: ^5.5.0+1
-  flutter_bloc: ^8.1.6
-  kiwi: ^5.0.1
-  kiwi_generator: ^4.2.1
-  cached_network_image: ^3.3.1
+  flutter_localizations:
+    sdk: flutter
+  json_serializable: 6.8.0
+  json_annotation: 4.9.0
+  dio: 5.5.0+1
+  flutter_bloc: 8.1.6
+  kiwi: 5.0.1
+  kiwi_generator: 4.2.1
+  cached_network_image: 3.4.0
+  intl: 0.18.1
 
 dev_dependencies:
   build_runner:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: 4.0.0
 
 flutter:
+  generate: true
   uses-material-design: true
